@@ -11,9 +11,8 @@ export default function Home() {
   const [email, setEmail] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
-  const getUsers = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault()
-    const res = await fetch('/api/users', {
+  const getUsers = async () : Promise<Response> => {
+    const res = await fetch('/api/auth', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -23,12 +22,25 @@ export default function Home() {
         password,
       }),
     })
+    return res;
+  }
 
-    const handleLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
-      console.log(getUsers(event))
-      if (email === 'sebbe@email.com' && password === 'conan') {
-        setIsLoggedIn(true)
-      }
+    const handleLogin = () => {
+      const users = getUsers()
+
+      users.then((response) => {
+        return response.json()
+      }).then( result => {
+        const test = result
+        console.log(test)
+
+        if (!result.error) {
+
+          console.log("Hello, " + result.name)
+          setIsLoggedIn(true)
+        }
+      })
+      // console.log(users.json())
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
