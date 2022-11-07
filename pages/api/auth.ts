@@ -18,11 +18,8 @@ export default function handler(
   const email = req.body["email"]
   const password = req.body["password"]
   if (email === 'sebbe@email.com' && password === 'conan') {
-    res.status(200).json({ name: 'Sebbe', error: null})
+    res.status(200).json({ name: 'Sebbe', error: null })
   } else {
-    // res.status(400).json({ name: null, {
-    //   description: "Incorrect password",
-    //   code: 400
-    // } })
+    res.status(401).json({ name: null, error: { description: 'Invalid credentials', code: 401 } })
   }
 }

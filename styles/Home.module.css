@@ -20,6 +20,10 @@
   list-style-type: none;
 }
 
+.errorMessage {
+  color: red;
+}
+
 .footer {
   display: flex;
   flex: 1;
